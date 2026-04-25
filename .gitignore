@@ -1,0 +1,24 @@
+# Dépendances & build (tous niveaux)
+**/node_modules/
+**/.next/
+**/out/
+**/dist/
+
+# Secrets & env
+.env
+.env.*
+!.env.example
+
+# OS & logs
+.DS_Store
+*.log
+npm-debug.log*
+ADMIN_CREDENTIALS.txt
+
+# Tests / rapports
+coverage/
+playwright-report/
+test-results/
+
+# IDE (optionnel)
+.idea/

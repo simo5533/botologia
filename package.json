@@ -1,0 +1,17 @@
+{
+  "name": "botoologia-desktop-root",
+  "private": true,
+  "description": "Point d'entrée : le code Next.js est dans BoTooLogIA/BoTooLogIA/. Les scripts npm délèguent vers ce dossier.",
+  "scripts": {
+    "dev": "npm run dev --prefix BoTooLogIA/BoTooLogIA",
+    "build": "npm run build --prefix BoTooLogIA/BoTooLogIA",
+    "start": "npm run start --prefix BoTooLogIA/BoTooLogIA",
+    "typecheck": "npm run typecheck --prefix BoTooLogIA/BoTooLogIA",
+    "test": "npm run test --prefix BoTooLogIA/BoTooLogIA",
+    "lint": "npm run lint --prefix BoTooLogIA/BoTooLogIA",
+    "test:coverage": "npm run test:coverage --prefix BoTooLogIA/BoTooLogIA",
+    "test:e2e": "npm run test:e2e --prefix BoTooLogIA/BoTooLogIA",
+    "check:all": "npm run check:all --prefix BoTooLogIA/BoTooLogIA",
+    "install:project": "npm install --prefix BoTooLogIA/BoTooLogIA"
+  }
+}

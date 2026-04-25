@@ -1,0 +1,2 @@
+cwd=C:\Users\hassa\Desktop\BoTooLogIA\BoTooLogIA
+url=postgresql://postgres:****@127.0.0.1:5433/botoologia?schema=public
