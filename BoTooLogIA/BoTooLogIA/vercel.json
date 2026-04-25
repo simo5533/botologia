@@ -1,3 +1,5 @@
 {
-  "framework": "next"
+  "framework": "next",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install"
 }

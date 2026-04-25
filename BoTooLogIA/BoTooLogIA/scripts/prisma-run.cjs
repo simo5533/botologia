@@ -1,11 +1,42 @@
 /**
- * CLI Prisma via npx --package (évite node_modules/prisma incomplet sur Vercel).
- * Mettre à jour Prisma dans package.json + cette version + package-lock.
+ * Prisma CLI : sur Vercel, supprime d'abord le paquet local (souvent corrompu / incomplet)
+ * pour que npx n'utilise pas le shim .bin/prisma -> build/index.js manquant.
+ * Ensuite : npx --package=prisma@x (cache npm, hors de ce node_modules).
  */
 const { spawnSync } = require("node:child_process");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const PRISMA_PIN = "7.5.0";
 const args = process.argv.slice(2);
+
+/**
+ * Vercel fournit VERCEL=1 ; sans ça, on ne touche pas à node_modules (dev local).
+ */
+function purgeVercelBrokenPrismaPackage() {
+  if (String(process.env.VERCEL) !== "1") return;
+  const nm = path.join(process.cwd(), "node_modules");
+  const entries = [
+    path.join(nm, "prisma"),
+    path.join(nm, ".bin", "prisma"),
+    path.join(nm, ".bin", "prisma.cmd"),
+  ];
+  for (const p of entries) {
+    try {
+      if (!fs.existsSync(p)) continue;
+      const st = fs.lstatSync(p);
+      if (st.isDirectory()) {
+        fs.rmSync(p, { recursive: true, force: true });
+      } else {
+        fs.unlinkSync(p);
+      }
+    } catch {
+      /* on continue */
+    }
+  }
+}
+
+purgeVercelBrokenPrismaPackage();
 
 const r = spawnSync(
   "npx",
