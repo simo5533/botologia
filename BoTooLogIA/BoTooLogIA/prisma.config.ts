@@ -1,23 +1,15 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import dotenv from "dotenv";
-
-// Charger .env (override: true pour que le fichier .env écrase les variables déjà définies)
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const envPath = path.resolve(__dirname, ".env");
-dotenv.config({ path: envPath, override: true });
-dotenv.config({ path: path.resolve(process.cwd(), ".env"), override: true });
+// Aucun import depuis "prisma/config" : sur Vercel, scripts/prisma-run.cjs peut retirer
+// node_modules/prisma ; npx résout alors mal ce module pour ce fichier.
+// Le .env local est chargé dans scripts/prisma-run.cjs (hors VERCEL).
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl?.trim()) {
   throw new Error(
-    "DATABASE_URL manquant dans .env à la racine du projet. Elle doit reprendre POSTGRES_USER, POSTGRES_PASSWORD et POSTGRES_DB (même .env), hôte 127.0.0.1 et port 5433 si la BDD tourne dans Docker (voir commentaire datasource dans prisma/schema.prisma)."
+    "DATABASE_URL manquant. En production, configure-le dans Vercel. En local, place un .env à la racine de l’app et lance `npm run build` (le script charge le .env avant Prisma)."
   );
 }
 
-import { defineConfig } from "prisma/config";
-
-export default defineConfig({
+export default {
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
@@ -25,4 +17,4 @@ export default defineConfig({
   datasource: {
     url: databaseUrl,
   },
-});
+};
