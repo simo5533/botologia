@@ -3,8 +3,9 @@
   "private": true,
   "description": "Point d'entrée : le code Next.js est dans BoTooLogIA/BoTooLogIA/. Les scripts npm délèguent vers ce dossier.",
   "scripts": {
+    "postinstall": "npm run install:project",
     "dev": "npm run dev --prefix BoTooLogIA/BoTooLogIA",
-    "build": "npm run build --prefix BoTooLogIA/BoTooLogIA",
+    "build": "npm run install:project && npm run build --prefix BoTooLogIA/BoTooLogIA",
     "start": "npm run start --prefix BoTooLogIA/BoTooLogIA",
     "typecheck": "npm run typecheck --prefix BoTooLogIA/BoTooLogIA",
     "test": "npm run test --prefix BoTooLogIA/BoTooLogIA",
