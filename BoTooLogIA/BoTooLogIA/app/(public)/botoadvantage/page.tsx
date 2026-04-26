@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { Check, X } from "lucide-react";
-import AnimatedCounter from "@/components/effects/AnimatedCounter";
+import AnimatedCounter from "../../../components/effects/AnimatedCounter";
 
 /* Données étapes méthode — version CEO */
 const methodeSteps = [

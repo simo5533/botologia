@@ -13,8 +13,8 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import AnimatedCounter from "@/components/effects/AnimatedCounter";
-import AILoader from "@/components/effects/AILoader";
+import AnimatedCounter from "../../../../components/effects/AnimatedCounter";
+import AILoader from "../../../../components/effects/AILoader";
 
 const COLORS = ["#00c8ff", "#7b5cff", "#00e5a0", "#fbbf24", "#ff4d6d"];
 

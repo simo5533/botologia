@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type ReactNode } from "react";
-import AILoader from "@/components/effects/AILoader";
+import AILoader from "../effects/AILoader";
 import { getPreferredMaleRoboticFrenchVoice } from "@/lib/speech-utils";
 
 /** Découpe le texte et place les http(s) en liens cliquables (couleurs visibles). */

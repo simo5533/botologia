@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AILoader from "@/components/effects/AILoader";
+import AILoader from "../../../../components/effects/AILoader";
 
 const STATUSES = [
   { key: "NOUVEAU", label: "Nouveaux", color: "#00c8ff", emoji: "🆕" },
