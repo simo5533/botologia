@@ -223,11 +223,22 @@ export default function AgentIA() {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as {
+        message?: string;
+        error?: string;
+        source?: string;
+      };
+      const errText =
+        data.error ??
+        (!response.ok && !data.message
+          ? `Erreur serveur (${response.status}). Réessayez ou contactez-nous via /botolink.`
+          : undefined);
       const assistantMessage: Message = {
         role: "assistant",
         content:
-          data.message ?? "Désolé, je n'ai pas pu traiter votre demande.",
+          data.message ??
+          errText ??
+          "Désolé, je n'ai pas pu traiter votre demande.",
         timestamp: new Date(),
       };
 
