@@ -12,6 +12,7 @@
     "postinstall": "npm run install:project",
     "dev": "npm run dev --prefix BoTooLogIA/BoTooLogIA",
     "build": "npm run install:project && npm run build --prefix BoTooLogIA/BoTooLogIA",
+    "vercel:build": "npm run build && node scripts/vercel-copy-next.cjs",
     "start": "npm run start --prefix BoTooLogIA/BoTooLogIA",
     "typecheck": "npm run typecheck --prefix BoTooLogIA/BoTooLogIA",
     "test": "npm run test --prefix BoTooLogIA/BoTooLogIA",
