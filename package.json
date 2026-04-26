@@ -3,6 +3,9 @@
   "private": true,
   "description": "Point d'entrée : le code Next.js est dans BoTooLogIA/BoTooLogIA/. Les scripts npm délèguent vers ce dossier.",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.4.0",
+    "@prisma/client": "^7.4.0",
+    "@prisma/client-runtime-utils": "7.4.0",
     "autoprefixer": "10.4.20",
     "next": "14.2.35",
     "postcss": "8.4.49",

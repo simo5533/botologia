@@ -47,6 +47,8 @@ const nextConfig = {
     minimumCacheTTL: 31536000,
   },
   experimental: {
+    // Monorepo : traçage des deps (Prisma, etc.) depuis la racine du dépôt
+    outputFileTracingRoot: path.join(__dirname, "../.."),
     optimizePackageImports: ["framer-motion", "recharts", "lucide-react"],
     instrumentationHook: true,
   },
