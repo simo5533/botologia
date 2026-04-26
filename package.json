@@ -2,6 +2,9 @@
   "name": "botoologia-desktop-root",
   "private": true,
   "description": "Point d'entrée : le code Next.js est dans BoTooLogIA/BoTooLogIA/. Les scripts npm délèguent vers ce dossier.",
+  "dependencies": {
+    "next": "14.2.35"
+  },
   "scripts": {
     "postinstall": "npm run install:project",
     "dev": "npm run dev --prefix BoTooLogIA/BoTooLogIA",
