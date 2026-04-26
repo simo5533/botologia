@@ -215,6 +215,7 @@ export default function AgentIA() {
       const response = await fetch("/api/agent-ia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
         body: JSON.stringify({
           messages: updatedMessages.slice(-12).map((m) => ({
             role: m.role,
@@ -223,11 +224,20 @@ export default function AgentIA() {
         }),
       });
 
-      const data = (await response.json()) as {
-        message?: string;
-        error?: string;
-        source?: string;
-      };
+      const raw = await response.text();
+      type AgentPayload = { message?: string; error?: string; source?: string };
+      let data: AgentPayload = {};
+      if (raw.trim()) {
+        try {
+          data = JSON.parse(raw) as AgentPayload;
+        } catch {
+          data = {
+            error: `Réponse inattendue du serveur (${response.status}). Un pare-feu ou une panne côté hébergeur peut renvoyer du HTML à la place du JSON.`,
+          };
+        }
+      } else if (!response.ok) {
+        data = { error: `Erreur serveur (${response.status}). Réessayez plus tard ou passez par /botolink.` };
+      }
       const errText =
         data.error ??
         (!response.ok && !data.message
@@ -243,13 +253,21 @@ export default function AgentIA() {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-      speak(textForSpeechWithoutUrls(assistantMessage.content));
-    } catch {
+      try {
+        speak(textForSpeechWithoutUrls(assistantMessage.content));
+      } catch {
+        /* synthèse vocale peut échouer (navigateur, politique) — ne pas masquer la réponse */
+      }
+    } catch (e) {
+      const hint =
+        e instanceof TypeError
+          ? " (souvent : réseau, CORS ou page hors ligne)"
+          : "";
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Une erreur s'est produite. Veuillez réessayer.",
+          content: `Connexion interrompue${hint}. Vérifiez votre réseau, rechargez la page, ou contactez-nous sur /botolink.`,
           timestamp: new Date(),
         },
       ]);
