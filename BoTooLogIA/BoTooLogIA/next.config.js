@@ -77,12 +77,18 @@ const nextConfig = {
     const stdlib = path.join(root, 'node_modules/three-stdlib');
     const existingAlias = (config.resolve && config.resolve.alias) || {};
     if (Array.isArray(existingAlias)) {
-      config.resolve.alias = [...existingAlias, { name: '@react-three/drei', alias: path.join(root, 'node_modules/@react-three/drei/index.cjs.js') }, { name: '@monogrid/gainmap-js', alias: path.join(root, 'lib/gainmap-stub.js') }];
+      config.resolve.alias = [
+        { name: "@", alias: root },
+        ...existingAlias,
+        { name: "@react-three/drei", alias: path.join(root, "node_modules/@react-three/drei/index.cjs.js") },
+        { name: "@monogrid/gainmap-js", alias: path.join(root, "lib/gainmap-stub.js") },
+      ];
     } else {
       config.resolve.alias = {
         ...existingAlias,
-        '@react-three/drei': path.join(root, 'node_modules/@react-three/drei/index.cjs.js'),
-        '@monogrid/gainmap-js': path.join(root, 'lib/gainmap-stub.js'),
+        "@": root,
+        "@react-three/drei": path.join(root, "node_modules/@react-three/drei/index.cjs.js"),
+        "@monogrid/gainmap-js": path.join(root, "lib/gainmap-stub.js"),
       };
     }
     // three-stdlib 2.36+: fichiers .cjs manquants, rediriger vers .js (ESM)
